@@ -1,0 +1,25 @@
+{
+  "name": "foundry-tunnel",
+  "version": "1.0.0",
+  "description": "Foundry SSH Tunnel App",
+  "main": "main.js",
+  "author": "Maik Stockmann",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.foundry.tunnel",
+    "productName": "FoundryTunnel",
+    "files": [
+      "**/*"
+    ],
+    "extraMetadata": {
+      "main": "main.js"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "icon.png"
+    }
+  }
+}

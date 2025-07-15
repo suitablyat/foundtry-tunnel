@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Foundry Tunnel</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    #toggleBtn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    #toggleBtn:hover {
+      background-color: #0056b3;
+    }
+
+    #status {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    #log {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 800px;
+      height: 200px;
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-y: auto;
+      font-family: Consolas, monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      user-select: text;
+    }
+  </style>
+</head>
+<body>
+  <h1>Foundry SSH Tunnel</h1>
+  <button id="toggleBtn">Tunnel starten</button>
+  <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+    <input type="checkbox" id="debugMode" />
+    Debug-Modus (-vvv)
+  </label>
+  <div id="status">🔴 Tunnel aus</div>
+  <pre id="log">Bereit</pre>
+  <script src="renderer.js"></script>
+</body>
+</html>
