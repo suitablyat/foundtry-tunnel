@@ -24,7 +24,7 @@ foundry-tunnel/
 ├── preload.js          # Preload bridge to renderer
 ├── renderer.js         # UI logic and tunnel control
 ├── index.html          # UI layout
-├── icon.ico            # App icon
+├── icon.png            # App icon
 ├── .env                # SSH settings (ignored by Git)
 ├── .gitignore
 └── package.json
@@ -145,7 +145,7 @@ Example config:
     ProxyPassReverse / http://127.0.0.1:31000/
 
     Header always set Strict-Transport-Security "max-age=31536000"
-	Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Content-Type-Options "nosniff"
 </VirtualHost>
 
 ```
@@ -157,7 +157,7 @@ sudo a2ensite foundry.conf
 sudo systemctl reload apache2
 ```
 
-### 3. DNS and SSL (Optional)
+### 3. DNS and SSL
 
 - Make sure your domain (e.g., `foundry.example.com`) points to your server.
 - For HTTPS, use [Let's Encrypt](https://certbot.eff.org/) via Certbot:
