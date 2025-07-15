@@ -1,6 +1,6 @@
 # 🛠️ Foundry Tunnel
 
-A lightweight Electron-based application that establishes a secure **SSH reverse tunnel** for hosting self-hosted [Foundry VTT](https://foundryvtt.com/) instances—without relying on services like playit.gg.
+A lightweight Electron-based application that establishes a secure **SSH reverse tunnel** for hosting self-hosted [Foundry VTT](https://foundryvtt.com/) instances without relying on services like playit.gg.
 
 ---
 
@@ -43,8 +43,8 @@ npm install
 ### 2. Create a `.env` file:
 
 ```env
-SSH_USER=test-user
-SSH_HOST=ip-or-domain-where-the-proxy-is
+SSH_USER=foundry
+SSH_HOST=foundry.example.com
 REMOTE_BIND=127.0.0.1
 REMOTE_PORT=31000
 LOCAL_HOST=localhost
@@ -76,7 +76,7 @@ npm run dist
 ## 📡 Example SSH Command Used
 
 ```bash
-ssh -N -R 127.0.0.1:31000:localhost:30000 foundryuser@foundry.lappenbande.de
+ssh -N -R 127.0.0.1:31000:localhost:30000 foundry@foundry.example.com
 ```
 
 ---
@@ -129,7 +129,7 @@ Example config:
 </VirtualHost>
 
 <VirtualHost *:443>
-    ServerName foundry.lappenbande.de
+    ServerName foundry.example.com
 
     SSLEngine on
     SSLCertificateFile /etc/letsencrypt/live/foundry.example.com/fullchain.pem

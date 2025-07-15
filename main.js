@@ -1,8 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
 const { spawn } = require('child_process');
-const dotenv = require('dotenv');
-dotenv.config();
+const path = require('path');
+const env = require('./env');
 
 let tunnelProcess = null;
 let tunnelKilledByUser = false;
@@ -53,8 +52,8 @@ function startTunnel(win, debug = false) {
 
   const baseArgs = [
     '-N',
-    '-R', `${process.env.REMOTE_BIND}:${process.env.REMOTE_PORT}:${process.env.LOCAL_HOST}:${process.env.LOCAL_PORT}`,
-    `${process.env.SSH_USER}@${process.env.SSH_HOST}`
+    '-R', `${env.REMOTE_BIND}:${env.REMOTE_PORT}:${env.LOCAL_HOST}:${env.LOCAL_PORT}`,
+    `${env.SSH_USER}@${env.SSH_HOST}`
   ];
   const args = debug ? ['-vvv', ...baseArgs] : baseArgs;
 

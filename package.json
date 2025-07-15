@@ -1,6 +1,6 @@
 {
   "name": "foundry-tunnel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Foundry SSH Tunnel App",
   "main": "main.js",
   "author": {
@@ -16,14 +16,16 @@
     "url": "https://github.com/suitablyat/foundtry-tunnel/issues"
   },
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder"
+    "build-env": "node build-env.js",
+    "start": "npm run build-env &&electron .",
+    "dist": "npm run build-env && electron-builder"
   },
   "build": {
     "appId": "com.foundry.tunnel",
     "productName": "FoundryTunnel",
     "files": [
-      "**/*"
+      "**/*",
+      ".env"
     ],
     "extraMetadata": {
       "main": "main.js"
@@ -32,5 +34,12 @@
       "target": "portable",
       "icon": "icon.png"
     }
+  },
+  "devDependencies": {
+    "electron": "^37.2.2",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0"
   }
 }
