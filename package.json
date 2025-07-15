@@ -3,7 +3,18 @@
   "version": "1.0.0",
   "description": "Foundry SSH Tunnel App",
   "main": "main.js",
-  "author": "Maik Stockmann",
+  "author": {
+    "name": "Maik Stockmann",
+    "url": "https://github.com/suitablyat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suitablyat/foundtry-tunnel.git"
+  },
+  "homepage": "https://github.com/suitablyat/foundtry-tunnel",
+  "bugs": {
+    "url": "https://github.com/suitablyat/foundtry-tunnel/issues"
+  },
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"

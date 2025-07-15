@@ -51,7 +51,7 @@
       border-radius: 6px;
       padding: 1rem;
       overflow-y: auto;
-      font-family: Consolas, monospace;
+      font-family: "Roboto Mono", Consolas, monospace;
       font-size: 0.85rem;
       white-space: pre-wrap;
       user-select: text;
@@ -60,13 +60,13 @@
 </head>
 <body>
   <h1>Foundry SSH Tunnel</h1>
-  <button id="toggleBtn">Tunnel starten</button>
+  <button id="toggleBtn">Start Tunnel</button>
   <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
     <input type="checkbox" id="debugMode" />
-    Debug-Modus (-vvv)
+    Debug mode (-vvv)
   </label>
-  <div id="status">🔴 Tunnel aus</div>
-  <pre id="log">Bereit</pre>
+  <div id="status">🔴 Tunnel inactive</div>
+  <pre id="log">Ready</pre>
   <script src="renderer.js"></script>
 </body>
 </html>

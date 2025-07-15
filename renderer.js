@@ -9,22 +9,22 @@ let lastClosedCode = undefined;
 toggleBtn.addEventListener('click', () => {
   if (!tunnelRunning) {
     clearLog();
-    log('🔄 Tunnel wird gestartet...');
+    log('🔄 Starting tunnel...');
     window.electronAPI.startTunnel({
       debug: debugCheckbox.checked
     });
     lastClosedCode = undefined;
     debugCheckbox.disabled = true;
   } else {
-    log('🛑 Tunnel wird gestoppt...');
+    log('🛑 Stopping tunnel...');
     window.electronAPI.stopTunnel();
   }
 });
 
 window.electronAPI.onTunnelStarted(() => {
   tunnelRunning = true;
-  statusEl.textContent = '🟢 Tunnel aktiv';
-  toggleBtn.textContent = 'Tunnel stoppen';
+  statusEl.textContent = '🟢 Tunnel active';
+  toggleBtn.textContent = 'Stop Tunnel';
 });
 
 window.electronAPI.onTunnelClosed(({ code, killedByUser }) => {
@@ -32,22 +32,26 @@ window.electronAPI.onTunnelClosed(({ code, killedByUser }) => {
   lastClosedCode = code;
 
   tunnelRunning = false;
-  statusEl.textContent = '🔴 Tunnel aus';
-  toggleBtn.textContent = 'Tunnel starten';
+  statusEl.textContent = '🔴 Tunnel inactive';
+  toggleBtn.textContent = 'Start Tunnel';
   debugCheckbox.disabled = false;
 
   if (killedByUser) {
-    log('✅ Tunnel wurde manuell beendet.');
+    log('✅ Tunnel was stopped manually.');
   } else if (code === 0) {
-    log('✅ Tunnel hat sich regulär beendet.');
+    log('✅ Tunnel exited cleanly.');
   } else {
-    log(`❌ Tunnel wurde unerwartet beendet (Code: ${code ?? 'null'}).`);
+    log(`❌ Tunnel exited unexpectedly (Code: ${code ?? 'null'}).`);
   }
 });
 
 window.electronAPI.onLogData((data) => {
   formatAndLog(data);
 });
+
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+  log(`JS Error: ${msg} in ${url} [${lineNo}:${columnNo}]`);
+};
 
 function formatAndLog(text) {
   const lines = text.split('\n');

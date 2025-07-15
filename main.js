@@ -21,18 +21,16 @@ function createWindow() {
   win.setMenu(null);
   win.loadFile('index.html');
 
-  // Wenn Fenster geschlossen wird, Tunnel stoppen
   win.on('close', (event) => {
     if (tunnelProcess) {
-      event.preventDefault(); // Verhindert sofortiges Schließen
+      event.preventDefault();
 
       tunnelKilledByUser = true;
       tunnelProcess.kill();
       tunnelProcess = null;
 
-      // Gib dem Prozess etwas Zeit zum Beenden, dann schließen
       setTimeout(() => {
-        win.destroy(); // Fenster dann wirklich schließen
+        win.destroy();
       }, 300);
     }
   });
@@ -60,7 +58,7 @@ function startTunnel(win, debug = false) {
   ];
   const args = debug ? ['-vvv', ...baseArgs] : baseArgs;
 
-  win.webContents.send('log-data', `SSH wird gestartet mit:\nssh ${args.join(' ')}\n\n`);
+  win.webContents.send('log-data', `Starting SSH with:\nssh ${args.join(' ')}\n\n`);
 
   tunnelProcess = spawn('ssh', args);
 
@@ -70,6 +68,10 @@ function startTunnel(win, debug = false) {
 
   tunnelProcess.stderr.on('data', (data) => {
     win.webContents.send('log-data', data.toString());
+  });
+  
+  tunnelProcess.on('error', (err) => {
+    win.webContents.send('log-data', `❌ Fehler beim Start des Tunnels: ${err.message}`);
   });
 
   tunnelProcess.on('close', (code) => {
