@@ -1,38 +1,47 @@
-# 🛠️ Foundry Tunnel
+# 🛠️ Foundry Tunnel (Tauri Edition)
 
-A lightweight Electron-based application that establishes a secure **SSH reverse tunnel** for hosting self-hosted [Foundry VTT](https://foundryvtt.com/) instances without relying on services like playit.gg.
+A lightweight, portable **Tauri-based** desktop app to securely expose self-hosted [Foundry VTT](https://foundryvtt.com/) instances using an SSH reverse tunnel – with a modern Svelte UI.
 
 ---
 
 ## ✨ Features
 
-- 🔐 Connects via SSH using your system's default private key (`~/.ssh/id_rsa`)
-- 🌐 Binds Foundry VTT to a public domain or IP using reverse tunneling
-- 🖱️ Simple toggle interface: Start/Stop tunnel
-- 🪵 Live log output with optional `-vvv` debug mode
-- 🔄 Auto-cleans stale tunnels
-- ⚙️ Customizable via `.env` file
-- 📦 Packaged as a Windows `.exe`
+- 🔐 SSH tunnel using your local key (`~/.ssh/id_rsa`)
+- 🌐 Exposes Foundry via remote port forwarding (reverse tunnel)
+- ⚙️ Custom host/user/port configuration via UI
+- 💾 Automatically saves last-used SSH settings
+- 🪵 Live terminal-style log output
+- 🐞 Toggle debug mode (`-vvv`)
+- 🛑 Automatically stops tunnel if an SSH error is detected
+- ✅ Browser-native validation for required fields
+- 📦 Fully portable `.exe` (no installer required)
 
 ---
 
-## 📁 Project Structure
+## 🧰 Usage
 
-```
-foundry-tunnel/
-├── main.js             # Main Electron process
-├── preload.js          # Preload bridge to renderer
-├── renderer.js         # UI logic and tunnel control
-├── index.html          # UI layout
-├── icon.png            # App icon
-├── .env                # SSH settings (ignored by Git)
-├── .gitignore
-└── package.json
-```
+### 1. Download & Run
+
+- Run the `.exe` file from the `target/release/` folder after build.
+- No installation needed (fully portable).
+- You’ll see a simple UI where you can configure SSH tunnel details.
+
+### 2. Configure connection
+
+Fill in:
+
+- `SSH Host` (e.g. `foundry.example.com`)
+- `SSH User` (e.g. `foundry`)
+- Remote bind (defaults to `127.0.0.1`)
+- Remote port (e.g. `31000`)
+- Local host (`localhost`)
+- Local port (e.g. `30000`)
+
+These values are saved automatically and restored on next launch.
 
 ---
 
-## 🧪 Development Setup
+## 🧪 Development
 
 ### 1. Install dependencies
 
@@ -40,61 +49,34 @@ foundry-tunnel/
 npm install
 ```
 
-### 2. Create a `.env` file:
-
-```env
-SSH_USER=foundry
-SSH_HOST=foundry.example.com
-REMOTE_BIND=127.0.0.1
-REMOTE_PORT=31000
-LOCAL_HOST=localhost
-LOCAL_PORT=30000
-```
-
-> ⚠️ This file is ignored via `.gitignore` and **should not be committed.**
-
-### 3. Start in dev mode
+### 2. Run dev server
 
 ```bash
-npm start
+npm run tauri dev
 ```
-
-Use the **"Debug" checkbox** to enable verbose SSH logging (`-vvv`).
 
 ---
 
-## 🛠️ Build the App (Windows)
+## 🏗️ Build portable `.exe`
 
 ```bash
-npm run dist
+npm run tauri build
 ```
 
-> Requires `electron-builder` and Windows OS for `.exe` generation.
+- Produces a portable Windows `.exe` in `src-tauri/target/release/`
+- No installer is created (see `tauri.conf.json` → `installer: false`)
 
 ---
 
-## 📡 Example SSH Command Used
+## 🧱 SSH Command Equivalent
+
+The app internally runs a command like:
 
 ```bash
 ssh -N -R 127.0.0.1:31000:localhost:30000 foundry@foundry.example.com
 ```
 
 ---
-
-## 📦 Release
-
-To package and publish a new version to GitHub:
-
-```bash
-npm run dist
-gh release create v1.0.0 dist/*.exe --title "Foundry Tunnel v1.0.0" --notes "Initial release"
-```
-
----
-
-## 📋 License
-
-MIT © [suitablyat](https://github.com/suitablyat)
 
 ---
 
@@ -176,5 +158,11 @@ sudo systemctl reload apache2
 - ❌ Foundry loads only the splash screen? WebSockets might be blocked or the proxy not forwarding correctly — verify `proxy_wstunnel` is active.
 - ❌ Tunnel won’t start? Make sure port `31000` is free and not firewalled.
 - ✅ Test port with: `sudo lsof -i :31000`
+
+---
+
+## 📋 License
+
+MIT © [suitablyat](https://github.com/suitablyat)
 
 ---
