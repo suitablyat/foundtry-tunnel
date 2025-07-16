@@ -1,8 +1,7 @@
 {
   "name": "foundry-tunnel",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Foundry SSH Tunnel App",
-  "main": "main.js",
   "author": {
     "name": "Maik Stockmann",
     "url": "https://github.com/suitablyat"
@@ -16,30 +15,21 @@
     "url": "https://github.com/suitablyat/foundtry-tunnel/issues"
   },
   "scripts": {
-    "build-env": "node build-env.js",
-    "start": "npm run build-env &&electron .",
-    "dist": "npm run build-env && electron-builder"
-  },
-  "build": {
-    "appId": "com.foundry.tunnel",
-    "productName": "FoundryTunnel",
-    "files": [
-      "**/*",
-      ".env"
-    ],
-    "extraMetadata": {
-      "main": "main.js"
-    },
-    "win": {
-      "target": "portable",
-      "icon": "icon.png"
-    }
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri",
+    "vite:build": "vite build",
+    "vite:dev": "vite"
   },
   "devDependencies": {
-    "electron": "^37.2.2",
-    "electron-builder": "^26.0.12"
+    "@sveltejs/vite-plugin-svelte": "^6.1.0",
+    "@tauri-apps/api": "^2.6.0",
+    "@tauri-apps/cli": "^2.6.2",
+    "svelte": "^5.36.2",
+    "vite": "^7.0.4"
   },
   "dependencies": {
-    "dotenv": "^17.2.0"
+    "@tauri-apps/plugin-log": "^2.6.0",
+    "@tauri-apps/plugin-store": "^2.3.0"
   }
 }
